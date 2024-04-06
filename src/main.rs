@@ -243,7 +243,7 @@ async fn main() {
 }
 
 impl Miner {
-    pub fn new(cluster: String, post_cluster: String, , priority_fee: u64, keypair_filepath: Option<String>) -> Self {
+    pub fn new(cluster: String, post_cluster: String, priority_fee: u64, keypair_filepath: Option<String>) -> Self {
         Self {
             keypair_filepath,
             priority_fee,
