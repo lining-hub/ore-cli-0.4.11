@@ -24,6 +24,7 @@ struct Miner {
     pub keypair_filepath: Option<String>,
     pub priority_fee: u64,
     pub cluster: String,
+    pub post_cluster: String,
 }
 
 #[derive(Parser, Debug)]
@@ -32,8 +33,17 @@ struct Args {
     #[arg(
         long,
         value_name = "NETWORK_URL",
-        help = "Network address of your RPC provider",
+        help = "Network address of your RPC provider, only for Query",
         global = true
+    )]
+    post_prc: Option<String>,
+
+
+    #[arg(
+            long,
+            value_name = "NETWORK_URL",
+            help = "Network address of your RPC provider",
+            global = true
     )]
     rpc: Option<String>,
 
@@ -187,10 +197,12 @@ async fn main() {
 
     // Initialize miner.
     let cluster = args.rpc.unwrap_or(cli_config.json_rpc_url);
+    let post_cluster = args.post_prc.unwrap_or(cluster);
     let default_keypair = args.keypair.unwrap_or(cli_config.keypair_path);
 
     let miner = Arc::new(Miner::new(
         cluster.clone(),
+        post_cluster.clone(),
         args.priority_fee,
         Some(default_keypair),
     ));

@@ -48,6 +48,9 @@ impl Miner {
             });
         }
 
+        let sendclient =
+                    RpcClient::new_with_commitment(self.post_cluster.clone(), CommitmentConfig::confirmed());
+
         // Build tx
         let (mut hash, mut slot) = client
             .get_latest_blockhash_with_commitment(CommitmentConfig::confirmed())
@@ -66,7 +69,7 @@ impl Miner {
         if dynamic_cus {
             let mut sim_attempts = 0;
             'simulate: loop {
-                let sim_res = client
+                let sim_res = sendclient
                     .simulate_transaction_with_config(
                         &tx,
                         RpcSimulateTransactionConfig {
@@ -125,7 +128,7 @@ impl Miner {
         let mut attempts = 0;
         loop {
             println!("Attempt: {:?}", attempts);
-            match client.send_transaction_with_config(&tx, send_cfg).await {
+            match sendclient.send_transaction_with_config(&tx, send_cfg).await {
                 Ok(sig) => {
                     sigs.push(sig);
                     println!("{:?}", sig);
@@ -136,7 +139,7 @@ impl Miner {
                     }
                     for _ in 0..CONFIRM_RETRIES {
                         std::thread::sleep(Duration::from_millis(2000));
-                        match client.get_signature_statuses(&sigs).await {
+                        match sendclient.get_signature_statuses(&sigs).await {
                             Ok(signature_statuses) => {
                                 println!("Confirms: {:?}", signature_statuses.value);
                                 for signature_status in signature_statuses.value {
