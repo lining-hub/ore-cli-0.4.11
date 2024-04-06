@@ -248,6 +248,7 @@ impl Miner {
             keypair_filepath,
             priority_fee,
             cluster,
+            post_cluster
         }
     }
 
