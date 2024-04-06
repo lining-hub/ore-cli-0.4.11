@@ -197,7 +197,7 @@ async fn main() {
 
     // Initialize miner.
     let cluster = args.rpc.unwrap_or(cli_config.json_rpc_url);
-    let post_cluster = args.post_prc.unwrap_or(cluster);
+    let post_cluster = args.post_prc.unwrap_or(cluster.clone());
     let default_keypair = args.keypair.unwrap_or(cli_config.keypair_path);
 
     let miner = Arc::new(Miner::new(
