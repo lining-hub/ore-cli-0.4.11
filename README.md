@@ -3,7 +3,7 @@
 A command line interface for the Ore program.
 
 ## Usage
-`ore --rpc "$public_rpc_url" --post-prc "$rpc_url" --keypair "${keypair}" --priority-fee 300000 mine --threads 20`
+`ore --rpc "$public_rpc_url" --post-rpc "$private_rpc_url" --keypair "${keypair}" --priority-fee 300000 mine --threads 20`
 
 ## Building
 
