@@ -35,10 +35,10 @@ struct Miner {
 #[command(about, version)]
 struct Args {
     #[arg(
-        long,
-        value_name = "NETWORK_URL",
-        help = "Network address of your RPC provider, only for Query",
-        global = true
+            long,
+            value_name = "NETWORK_URL",
+            help = "Network address of your RPC provider, only for Query",
+            global = true
     )]
     post_rpc: Option<String>,
 
@@ -204,7 +204,8 @@ async fn main() {
     let post_cluster = args.post_rpc.unwrap_or(cluster.clone());
     let default_keypair = args.keypair.unwrap_or(cli_config.keypair_path);
     let rpc_client = RpcClient::new_with_commitment(cluster, CommitmentConfig::finalized());
-    let post_rpc_client = RpcClient::new_with_commitment(post_cluster, CommitmentConfig::finalized());
+    let post_rpc_client =
+        RpcClient::new_with_commitment(post_cluster, CommitmentConfig::finalized());
 
     let miner = Arc::new(Miner::new(
         Arc::new(rpc_client),
@@ -249,7 +250,11 @@ async fn main() {
 }
 
 impl Miner {
-    pub fn new(rpc_client: Arc<RpcClient>, post_rpc_client: Arc<RpcClient>, priority_fee: u64, keypair_filepath: Option<String>) -> Self {
+    pub fn new(
+        rpc_client: Arc<RpcClient>,
+        post_rpc_client: Arc<RpcClient>,
+        priority_fee: u64, keypair_filepath: Option<String>
+    ) -> Self {
         Self {
             rpc_client,
             post_rpc_client,
