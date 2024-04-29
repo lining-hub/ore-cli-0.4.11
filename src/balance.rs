@@ -2,7 +2,7 @@ use std::str::FromStr;
 
 use solana_program::pubkey::Pubkey;
 use solana_sdk::signature::Signer;
-
+use solana sdk sig progrm
 use crate::Miner;
 
 impl Miner {
