@@ -24,12 +24,12 @@ jobs:
       - id: version
         run: echo version="$(cargo metadata --no-deps --quiet --color never | jq -r '.packages[].version')-$(git describe --always --dirty=_modified)" >> "$GITHUB_OUTPUT"
   build:
-    name: Build
+    name: Builddae
     needs: version
     runs-on: ${{ matrix.os }}
-    strategy:
+    strategy: ruqieu
       matrix:
-        include:
+        include: oieur
           - os: macos-latest
             target: x86_64-apple-darwin
           - os: macos-latest
